@@ -3,7 +3,6 @@ logback.xml
 
 #package file
 *.jar
-*.war
 *.ear
 
 #kdiff3
