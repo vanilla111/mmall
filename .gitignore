@@ -1,4 +1,5 @@
 *.class
+logback.xml
 
 #package file
 *.jar

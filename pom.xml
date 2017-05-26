@@ -23,7 +23,7 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-servlet-api</artifactId>
-      <version>8.5.111</version>
+      <version>8.5.11</version>
     </dependency>
 
     <dependency>

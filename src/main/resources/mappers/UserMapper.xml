@@ -150,4 +150,39 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="checkUsername" resultType="int" parameterType="String">
+    SELECT COUNT(1) FROM mmall.mmall_user WHERE username=#{username}
+  </select>
+
+  <select id="checkEmail" resultType="int" parameterType="String">
+    SELECT COUNT(1) FROM mmall.mmall_user WHERE email=#{email}
+  </select>
+  
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+    SELECT <include refid="Base_Column_List" />
+    FROM mmall.mmall_user
+    WHERE username=#{username}
+    AND password=#{password}
+  </select>
+  
+  <select id="selectQuestionByUsername" resultType="String" parameterType="String">
+    SELECT question FROM  mmall.mmall_user WHERE  username=#{username}
+  </select>
+  
+  <select id="checkAnswer" resultType="int" parameterType="map">
+    SELECT COUNT(1) FROM mmall.mmall_user
+    WHERE username=#{username} AND question=#{question} AND answer=#{answer}
+  </select>
+  
+  <update id="updatePasswordByUsername" parameterType="map">
+    UPDATE mmall.mmall_user SET password=#{password}, update_time=now() WHERE username=#{username}
+  </update>
+
+  <select id="checkPassword" parameterType="map" resultType="int">
+    SELECT COUNT(1) FROM  mmall.mmall_user WHERE id=#{userid} AND password=#{password}
+  </select>
+  
+  <select id="checkEmailByUserId" resultType="int" parameterType="map">
+    SELECT COUNT(1) FROM mmall.mmall_user WHERE email=#{email} AND id!=#{userid}
+  </select>
 </mapper>
