@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mmall.dao.CategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.mmall.pojo.Category" >
+<mapper namespace="com.shopping.dao.CategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.shopping.pojo.Category" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -25,14 +25,14 @@
     delete from mmall_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mmall.pojo.Category" >
+  <insert id="insert" parameterType="com.shopping.pojo.Category" >
     insert into mmall_category (id, parent_id, name, 
       status, sort_order, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.pojo.Category" >
+  <insert id="insertSelective" parameterType="com.shopping.pojo.Category" >
     insert into mmall_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -81,7 +81,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Category" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopping.pojo.Category" >
     update mmall_category
     <set >
       <if test="parentId != null" >
@@ -105,7 +105,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Category" >
+  <update id="updateByPrimaryKey" parameterType="com.shopping.pojo.Category" >
     update mmall_category
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
@@ -118,7 +118,7 @@
 
   <select id="selectCategoryChildrenByParentId" parameterType="int" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List"/>
-    FROM mmall.mmall_category
+    FROM mmall_category
     WHERE parent_id=#{parentId} AND status=1
   </select>
 </mapper>

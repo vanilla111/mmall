@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mmall.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.mmall.pojo.User" >
+<mapper namespace="com.shopping.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.shopping.pojo.User" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -28,7 +28,7 @@
     delete from mmall_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mmall.pojo.User" >
+  <insert id="insert" parameterType="com.shopping.pojo.User" >
     insert into mmall_user (id, username, password, 
       email, phone, question, 
       answer, role, create_time, 
@@ -37,7 +37,7 @@
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
       #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.pojo.User" >
+  <insert id="insertSelective" parameterType="com.shopping.pojo.User" >
     insert into mmall_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -104,7 +104,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopping.pojo.User" >
     update mmall_user
     <set >
       <if test="username != null" >
@@ -137,7 +137,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.User" >
+  <update id="updateByPrimaryKey" parameterType="com.shopping.pojo.User" >
     update mmall_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -151,38 +151,38 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="checkUsername" resultType="int" parameterType="String">
-    SELECT COUNT(1) FROM mmall.mmall_user WHERE username=#{username}
+    SELECT COUNT(1) FROM mmall_user WHERE username=#{username}
   </select>
 
   <select id="checkEmail" resultType="int" parameterType="String">
-    SELECT COUNT(1) FROM mmall.mmall_user WHERE email=#{email}
+    SELECT COUNT(1) FROM mmall_user WHERE email=#{email}
   </select>
   
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
     SELECT <include refid="Base_Column_List" />
-    FROM mmall.mmall_user
+    FROM mmall_user
     WHERE username=#{username}
     AND password=#{password}
   </select>
   
   <select id="selectQuestionByUsername" resultType="String" parameterType="String">
-    SELECT question FROM  mmall.mmall_user WHERE  username=#{username}
+    SELECT question FROM  mmall_user WHERE  username=#{username}
   </select>
   
   <select id="checkAnswer" resultType="int" parameterType="map">
-    SELECT COUNT(1) FROM mmall.mmall_user
+    SELECT COUNT(1) FROM mmall_user
     WHERE username=#{username} AND question=#{question} AND answer=#{answer}
   </select>
   
   <update id="updatePasswordByUsername" parameterType="map">
-    UPDATE mmall.mmall_user SET password=#{password}, update_time=now() WHERE username=#{username}
+    UPDATE mmall_user SET password=#{password}, update_time=now() WHERE username=#{username}
   </update>
 
   <select id="checkPassword" parameterType="map" resultType="int">
-    SELECT COUNT(1) FROM  mmall.mmall_user WHERE id=#{userid} AND password=#{password}
+    SELECT COUNT(1) FROM mmall_user WHERE id=#{userid} AND password=#{password}
   </select>
   
   <select id="checkEmailByUserId" resultType="int" parameterType="map">
-    SELECT COUNT(1) FROM mmall.mmall_user WHERE email=#{email} AND id!=#{userid}
+    SELECT COUNT(1) FROM mmall_user WHERE email=#{email} AND id!=#{userid}
   </select>
 </mapper>
