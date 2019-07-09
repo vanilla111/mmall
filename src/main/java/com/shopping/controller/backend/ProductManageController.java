@@ -12,7 +12,7 @@ import com.shopping.service.IUserService;
 import com.shopping.util.CookieUtil;
 import com.shopping.util.JsonUtil;
 import com.shopping.util.PropertiesUtil;
-import com.shopping.util.RedisPoolUtil;
+import com.shopping.util.RedisShardedPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +47,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
 
         if (user == null)
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
@@ -65,7 +65,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
 
         if (user == null)
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
@@ -83,7 +83,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
 
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
@@ -103,7 +103,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }
@@ -122,7 +122,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }
@@ -140,7 +140,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }
@@ -166,7 +166,7 @@ public class ProductManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             resMap.put("success", false);
             resMap.put("msg", "请先登录！");

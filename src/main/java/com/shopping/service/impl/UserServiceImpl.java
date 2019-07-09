@@ -6,7 +6,7 @@ import com.shopping.dao.UserMapper;
 import com.shopping.pojo.User;
 import com.shopping.service.IUserService;
 import com.shopping.util.MD5Util;
-import com.shopping.util.RedisPoolUtil;
+import com.shopping.util.RedisShardedPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,7 +102,7 @@ public class UserServiceImpl implements IUserService{
         if (resultCount > 0) {
             //问题正确
             String forget_token = UUID.randomUUID().toString();
-            RedisPoolUtil.setex(Const.TOKEN_PREFIX + username, forget_token, 60 * 60 * 12);
+            RedisShardedPoolUtil.setex(Const.TOKEN_PREFIX + username, forget_token, 60 * 60 * 12);
             return ServerResponse.createBySuccess("success", forget_token);
         }
 
@@ -117,7 +117,7 @@ public class UserServiceImpl implements IUserService{
         if (serverResponse.isSuccess())
             return ServerResponse.createByErrorMessage("user not found");
 
-        String cache_token = RedisPoolUtil.get(Const.TOKEN_PREFIX + username);
+        String cache_token = RedisShardedPoolUtil.get(Const.TOKEN_PREFIX + username);
         if (StringUtils.isBlank(cache_token)) {
             return ServerResponse.createByErrorMessage("token is invalid or expired");
         }

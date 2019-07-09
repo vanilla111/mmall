@@ -7,7 +7,7 @@ import com.shopping.pojo.User;
 import com.shopping.service.IUserService;
 import com.shopping.util.CookieUtil;
 import com.shopping.util.JsonUtil;
-import com.shopping.util.RedisPoolUtil;
+import com.shopping.util.RedisShardedPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ public class UserController {
         if (serverResponse.isSuccess()) {
             //session.setAttribute(Const.CURRENT_USER, serverResponse.getData());
             CookieUtil.writeLoginToken(response, session.getId());
-            RedisPoolUtil.setex(session.getId(), JsonUtil.objectToJson(serverResponse.getData()),
+            RedisShardedPoolUtil.setex(session.getId(), JsonUtil.objectToJson(serverResponse.getData()),
                     Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
 
         }
@@ -56,7 +56,7 @@ public class UserController {
     public ServerResponse<String> logout(HttpServletRequest request, HttpServletResponse response) {
         String loginToken = CookieUtil.readLoginToken(request);
         CookieUtil.delLoginCookie(request, response);
-        RedisPoolUtil.del(loginToken);
+        RedisShardedPoolUtil.del(loginToken);
 
         return ServerResponse.createBySuccess();
     }
@@ -79,7 +79,7 @@ public class UserController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
 
         if (user == null)
             return ServerResponse.createByErrorMessage("用户尚未登录");
@@ -111,7 +111,7 @@ public class UserController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null)
             return ServerResponse.createByErrorMessage("用户尚未登陆");
 
@@ -124,7 +124,7 @@ public class UserController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
 
         if (user == null)
             return ServerResponse.createByErrorMessage("用户尚未登陆");
@@ -134,7 +134,7 @@ public class UserController {
 
         ServerResponse serverResponse = iUserService.update_information(newUser);
         if (serverResponse.isSuccess())
-            RedisPoolUtil.setex(loginToken, JsonUtil.objectToJson(newUser), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
+            RedisShardedPoolUtil.setex(loginToken, JsonUtil.objectToJson(newUser), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
 
         return serverResponse;
     }
@@ -145,7 +145,7 @@ public class UserController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
 
         if (user == null)
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户尚未登陆, 需要强制登陆");

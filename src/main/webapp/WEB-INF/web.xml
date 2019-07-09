@@ -24,12 +24,21 @@
     </filter-mapping>
     
     <!--重制session拦截器-->
+    <!--<filter>-->
+        <!--<filter-name>SessionExpireFilter</filter-name>-->
+        <!--<filter-class>com.shopping.controller.common.SessionExpireFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>SessionExpireFilter</filter-name>-->
+        <!--<url-pattern>*.do</url-pattern>-->
+    <!--</filter-mapping>-->
+    
     <filter>
-        <filter-name>SessionExpireFilter</filter-name>
-        <filter-class>com.shopping.controller.common.SessionExpireFilter</filter-class>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>SessionExpireFilter</filter-name>
+        <filter-name>springSessionRepositoryFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
 

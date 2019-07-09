@@ -8,7 +8,7 @@ import com.shopping.pojo.User;
 import com.shopping.service.IOrderService;
 import com.shopping.util.CookieUtil;
 import com.shopping.util.JsonUtil;
-import com.shopping.util.RedisPoolUtil;
+import com.shopping.util.RedisShardedPoolUtil;
 import com.shopping.vo.OrderVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class OrderManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }
@@ -54,7 +54,7 @@ public class OrderManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }
@@ -73,7 +73,7 @@ public class OrderManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }
@@ -90,7 +90,7 @@ public class OrderManageController {
         String loginToken = CookieUtil.readLoginToken(request);
         User user = null;
         if (StringUtils.isNotEmpty(loginToken))
-            user = JsonUtil.stringToObj(RedisPoolUtil.get(loginToken), User.class);
+            user = JsonUtil.stringToObj(RedisShardedPoolUtil.get(loginToken), User.class);
         if (user == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "please login");
         }

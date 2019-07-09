@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 public class CookieUtil {
-    private final static String COOKIE_DOMAIN = ".redleaf.wang";
+    private final static String COOKIE_DOMAIN = "localhost";
     private final static String COOKIE_NAME = "wws_login_token";
 
     public static void writeLoginToken(HttpServletResponse response, String token) {

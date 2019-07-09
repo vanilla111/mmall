@@ -6,7 +6,7 @@ import com.shopping.pojo.User;
 import com.shopping.service.IUserService;
 import com.shopping.util.CookieUtil;
 import com.shopping.util.JsonUtil;
-import com.shopping.util.RedisPoolUtil;
+import com.shopping.util.RedisShardedPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +33,7 @@ public class UserManageController {
             User user = serverResponse.getData();
             if (user.getRole() == Const.Role.ROLE_ADMIN) {
                 CookieUtil.writeLoginToken(response, session.getId());
-                RedisPoolUtil.setex(session.getId(), JsonUtil.objectToJson(user), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
+                RedisShardedPoolUtil.setex(session.getId(), JsonUtil.objectToJson(user), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
                 return serverResponse;
             } else {
                 return ServerResponse.createByErrorMessage("权限不足");

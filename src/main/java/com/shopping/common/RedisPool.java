@@ -18,9 +18,9 @@ public class RedisPool {
     private static Boolean testOnBorrow = Boolean.parseBoolean(PropertiesUtil.getProperty("redis.test.borrow", "true"));
     private static Boolean testOnReturn = Boolean.parseBoolean(PropertiesUtil.getProperty("redis.test.return", "false"));
 
-    private static String redisIP = PropertiesUtil.getProperty("redis.sentinel.ip");
-    private static Integer redisPort = Integer.parseInt(PropertiesUtil.getProperty("redis.sentinel.port"));
-    private static String redisPassword = PropertiesUtil.getProperty("redis.sentinel.password");
+    private static String redisIP = PropertiesUtil.getProperty("redis_2.ip");
+    private static Integer redisPort = Integer.parseInt(PropertiesUtil.getProperty("redis_2.port"));
+    private static String redisPassword = PropertiesUtil.getProperty("redis_2.password");
 
     private static void initPool() {
         JedisPoolConfig config = new JedisPoolConfig();
@@ -54,7 +54,7 @@ public class RedisPool {
 
     public static void main(String[] args) {
         Jedis jedis = RedisPool.getResource();
-        jedis.set("hello","world");
+        jedis.set("hello","world2333333");
         System.out.println(jedis.get("hello"));
         RedisPool.returnResource(jedis);
         jedisPool.destroy();
